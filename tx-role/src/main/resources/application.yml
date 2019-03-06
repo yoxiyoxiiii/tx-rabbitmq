@@ -1,0 +1,32 @@
+server:
+  port: 8081
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8070/eureka/
+    fetch-registry: false
+    register-with-eureka: true
+spring:
+  application:
+    name: txrole
+
+  rabbitmq:
+    host: 127.0.0.1
+    password: guest
+    username: guest
+    port: 5672
+    listener:
+      simple:
+        acknowledge-mode: manual
+      direct:
+        acknowledge-mode: manual
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #�Զ�������ʹ�� innodb �洢����
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.86.1:3306/tx-mq?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC

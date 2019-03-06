@@ -1,0 +1,46 @@
+server:
+  port: 8080
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8070/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+spring:
+  application:
+    name: txuser
+
+  rabbitmq:
+    host: 127.0.0.1
+    password: guest
+    username: guest
+    port: 5672
+    #消息投递确认confirms 模式，消息投递模式 异步
+    publisher-confirms: true
+    # 消息投递失败 返回开启
+    publisher-returns: true
+
+    template:
+      mandatory: true
+      #消息消费 ack 手动确认 ，简单队列
+    listener:
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+          max-attempts: 2
+          max-interval: 10000
+          initial-interval: 5000
+#      direct:
+#        acknowledge-mode: manual
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect #自动创建表使用 innodb 存储策略
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.86.1:3306/tx-mq?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=UTC
